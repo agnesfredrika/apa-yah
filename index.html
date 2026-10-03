@@ -226,116 +226,95 @@
       line-height: 1.3 !important;
     }
 
-    .coupon-scene {
-      width: min(760px, 93vw);
-      aspect-ratio: 2.64 / 1;
-      margin: 28px auto 8px;
-      perspective: 1200px;
-    }
+   .coupon-scene {
+  width: min(760px, 93vw);
+  aspect-ratio: 2.64 / 1;
+  margin: 28px auto 8px;
+  perspective: 1000px;
 
-    .coupon-card {
+  /* Shadow belongs here, outside the 3D card */
+  filter: drop-shadow(0 24px 20px rgba(80, 38, 48, 0.25));
+}
+
+.coupon-card {
   position: relative;
+  display: block;
   width: 100%;
   height: 100%;
-   padding: 0;
+  padding: 0;
   border: 0;
   border-radius: 18px;
   cursor: pointer;
   background: transparent;
-  outline: none;
-  filter: drop-shadow(0 26px 22px rgba(80, 38, 48, 0.24));
+
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
-    }
 
-   .coupon-card:focus-visible {
-  outline: 3px solid #c9667b;
-  outline-offset: 7px;
-    }
-
-    .coupon-face {
-     position: absolute;
-  inset: 0;
-  overflow: hidden;
-  border-radius: 18px;
-  background: white;
-  transform-style: preserve-3d;
-  -webkit-transform-style: preserve-3d;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
-    }
-
-    .coupon-front {
-  transform: rotateY(0deg);
-  -webkit-transform: rotateY(0deg);
+  transition: transform 0.8s ease;
+  -webkit-transition: -webkit-transform 0.8s ease;
 }
 
-.coupon-back {
-  transform: rotateY(-180deg);
-  -webkit-transform: rotateY(-180deg);
-}
-
-.coupon-card.flipped .coupon-front {
+.coupon-card.flipped {
   transform: rotateY(180deg);
   -webkit-transform: rotateY(180deg);
 }
 
-.coupon-card.flipped .coupon-back {
-  transform: rotateY(0deg);
-  -webkit-transform: rotateY(0deg);
+.coupon-face {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  border-radius: 18px;
+  background: white;
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
 }
 
-    .coupon-face img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      background: white;
-      user-select: none;
-      -webkit-user-drag: none;
-    }
+.coupon-front {
+  transform: rotateY(0deg) translateZ(1px);
+  -webkit-transform: rotateY(0deg) translateZ(1px);
+}
 
-  
-    .shine {
-      position: absolute;
-      inset: -40%;
-      pointer-events: none;
-      background: linear-gradient(
-        105deg,
-        transparent 40%,
-        rgba(255, 255, 255, 0.7) 50%,
-        transparent 60%
-      );
-      transform: translateX(-90%) rotate(8deg);
-      animation: shineMove 5.3s ease-in-out infinite;
-    }
+.coupon-back {
+  transform: rotateY(180deg) translateZ(1px);
+  -webkit-transform: rotateY(180deg) translateZ(1px);
+}
 
-    .tap-label,
-    .back-label {
-      position: absolute;
-      left: 50%;
-      bottom: 14px;
-     transform: translateX(-50%);
-    padding: 8px 13px;
-    border-radius: 999px;
-    white-space: nowrap;
-    font-family: "DM Mono", monospace;
-    font-size: 11px;
-    backdrop-filter: blur(8px);
-    }
+.coupon-face img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: white;
+  user-select: none;
+  -webkit-user-drag: none;
+}
 
-    .tap-label {
-      color: white;
-      background: rgba(53, 24, 30, 0.72);
-      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.16);
-    }
+.tap-label,
+.back-label {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  z-index: 2;
+  transform: translateX(-50%);
+  padding: 8px 13px;
+  border-radius: 999px;
+  color: white;
+  background: rgba(53, 24, 30, 0.72);
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  white-space: nowrap;
+  pointer-events: none;
+}
 
-    .back-label {
-      color: #4a2c32;
-      background: rgba(255, 255, 255, 0.80);
-    }
+.back-label {
+  color: #4a2c32;
+  background: rgba(255, 255, 255, 0.84);
+}
 
     .coupon-message {
       min-height: 22px;
@@ -482,7 +461,7 @@
         <div class="eyebrow">Cie senyum-senyum</div>
 
         <!-- CHANGE THIS: Add his nickname if you want -->
-        <h1>Hi, Sayang! ♡</h1>
+        <h1>Hi, Sayang!</h1>
 
         <p>
           Ini yang kamu tunggu-tunggu semalam HAHAHA
@@ -520,7 +499,7 @@
 
           <div class="reason">
             <span>😌</span>
-            You're my favorite to talk to, miss, and laugh with. Jujur ini udah kangen banget karena call-nya tadi ke-end.
+            You're my favorite to talk to, miss, and laugh with. Jujur ini udah kangen banget karena call-nya ke-end.
           </div>
         </div>
 
@@ -537,7 +516,7 @@
     <!-- PAGE 3: LETTER -->
     <section class="page" id="page3">
       <div class="card">
-        <div class="eyebrow">A letter for you</div>
+        <div class="eyebrow">Setitik Surat 💌</div>
 
         <!-- CHANGE THIS: His nickname -->
         <h2>It's October 3rd!</h2>
@@ -575,7 +554,7 @@
           <!-- CHANGE THIS: Your name -->
           <p class="signature">
             Love,<br />
-            Agnes ♡
+            Anes ♡
           </p>
         </div>
 
@@ -592,19 +571,22 @@
     <!-- PAGE 4: ILLUSTRATOR COUPON -->
     <section class="page" id="page4">
       <div class="card">
-        <div class="eyebrow">Your final surprise</div>
-        <h2>A little coupon for you</h2>
+        <div class="eyebrow">Ini dia...</div>
+        <h2>Surprise Sebenarnya</h2>
 
         <p>
-          Ini yang aku mau kasih ke kamu tadi HEHEHE tap to claim it!
+          Ini yang aku mau kasih ke kamu jam 2 pagi tadi 👀
         </p>
 
         <div class="coupon-scene">
-          <div
+          <button
             class="coupon-card"
-         id="couponCard"
-         type="button"
-         aria-label="Tap to flip your meal coupon"
+            id="couponCard"
+            onclick="flipCoupon()"
+            onkeydown="handleCouponKey(event)"
+            role="button"
+            tabindex="0"
+            aria-label="Tap to flip your Boyfriend Day meal coupon"
           >
             <div class="coupon-face coupon-front">
               <!-- This must match your Illustrator export file name -->
@@ -614,7 +596,7 @@
               />
 
               <div class="shine"></div>
-              <div class="tap-label">Tap to reveal ♡</div>
+              <div class="tap-label">TAP TO CLAIM IT ❤️</div>
             </div>
 
             <div class="coupon-face coupon-back">
@@ -624,17 +606,17 @@
                 alt="Back of a Boyfriend Day meal coupon"
               />
 
-              <span class="back-label">Tap to flip it back</span>
+              <div class="back-label">Tap again to flip it back</div>
             </div>
-         </button>
-        </div>
+          </div>
+        </button>
 
         <p class="coupon-message" id="couponMessage">
-          hadiah kecil dari aku, cewe kamu.
+          1 MEAL COUPON BERSAMA AGNES!
         </p>
 
         <p class="coupon-final" id="couponFinal">
-          you can only redeem it with me hehehe ♡
+          ⚠️ You can only redeem it WITH ME ⚠️
         </p>
 
         <button class="btn outline" onclick="goToPage(3)">
@@ -650,105 +632,83 @@
     <!-- PAGE 5: FINAL -->
     <section class="page" id="page5">
       <div class="card">
-        <div class="eyebrow">itu aja buat sekarang😗</div>
+        <div class="eyebrow">itu aja buat sekarang 🙌</div>
 
         <!-- CHANGE THIS: Add his name or nickname if you want -->
-        <h2>I love you♡</h2>
+        <h2> Once Again,</h2>
 
         <p>
-          Happy Boyfriend Day buat cowo aku (eh sorry, temen mksdnya)!
-          I hope this small surprise made you smile! Kalo ga, jujur parah banget
+          Happy Boyfriend Day buat cowo aku (eh sorry, temen mksdnya) 😃
+          I hope this small surprise makes you smile sepanjang hari! Kalo ga, jujur parah banget...
         </p>
 
         <p>
           Now please send me pap kamu sekarang because I made
-          this with love and I want to see your reaction HEHE😌
+          this with love dan aku pengen lihat reaksi kamu sekarang ☺️
         </p>
 
         <div class="final-heart">♡</div>
 
         <button class="btn" onclick="goToPage(1)">
-          Tap kalau kamu mau baca lagi
+          Tap kalau mau baca lagi 😋
         </button>
       </div>
     </section>
   </main>
 
   <script>
-    function goToPage(pageNumber) {
-      document.querySelectorAll(".page").forEach((page) => {
-        page.classList.remove("active");
-      });
+  function goToPage(pageNumber) {
+    document.querySelectorAll(".page").forEach((page) => {
+      page.classList.remove("active");
+    });
 
-      document.getElementById("page" + pageNumber).classList.add("active");
+    document.getElementById("page" + pageNumber).classList.add("active");
 
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    }
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
 
+  function flipCoupon() {
     const couponCard = document.getElementById("couponCard");
     const couponMessage = document.getElementById("couponMessage");
     const couponFinal = document.getElementById("couponFinal");
 
-    function flipCoupon() {
-      couponCard.classList.toggle("flipped");
+    couponCard.classList.toggle("flipped");
 
-      const isFlipped = couponCard.classList.contains("flipped");
-
-      if (isFlipped) {
-        couponMessage.textContent = "Your meal-date coupon has been unlocked ♡";
-        couponFinal.classList.add("show");
-      } else {
-        couponMessage.textContent = "A small gift, made especially for you.";
-        couponFinal.classList.remove("show");
-      }
+    if (couponCard.classList.contains("flipped")) {
+      couponMessage.textContent = "COUPON SUCCESSFULLY CLAIMED!";
+      couponFinal.classList.add("show");
+    } else {
+      couponMessage.textContent = "1 MEAL COUPON BERSAMA AGNES!";
+      couponFinal.classList.remove("show");
     }
+  }
 
-    function handleCouponKey(event) {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        flipCoupon();
-      }
+  function handleCouponKey(event) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      flipCoupon();
     }
+  }
 
-    couponCard.addEventListener("mousemove", (event) => {
-      if (couponCard.classList.contains("flipped")) {
-        return;
-      }
+  const couponCard = document.getElementById("couponCard");
 
-      const box = couponCard.getBoundingClientRect();
-      const x = (event.clientX - box.left) / box.width;
-      const y = (event.clientY - box.top) / box.height;
+  const hearts = document.getElementById("hearts");
 
-      const rotateY = (x - 0.5) * 12;
-      const rotateX = (0.5 - y) * 10;
+  for (let i = 0; i < 22; i++) {
+    const heart = document.createElement("div");
 
-      couponCard.style.transform =
-        `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.025)`;
-    });
+    heart.className = "heart";
+    heart.innerHTML = "♡";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDelay = Math.random() * 8 + "s";
+    heart.style.animationDuration = 7 + Math.random() * 7 + "s";
+    heart.style.fontSize = 13 + Math.random() * 24 + "px";
 
-    couponCard.addEventListener("mouseleave", () => {
-      if (!couponCard.classList.contains("flipped")) {
-        couponCard.style.transform = "";
-      }
-    });
-
-    const hearts = document.getElementById("hearts");
-
-    for (let i = 0; i < 22; i++) {
-      const heart = document.createElement("div");
-
-      heart.className = "heart";
-      heart.innerHTML = "♡";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDelay = Math.random() * 8 + "s";
-      heart.style.animationDuration = 7 + Math.random() * 7 + "s";
-      heart.style.fontSize = 13 + Math.random() * 24 + "px";
-
-      hearts.appendChild(heart);
-    }
-  </script>
+    hearts.appendChild(heart);
+  }
+</script>
 </body>
 </html>
