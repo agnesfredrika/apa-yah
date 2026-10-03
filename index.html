@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <title>A Little Something for You ♡</title>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap");
+
+    :root {
+      --cream: #fff8f2;
+      --pink: #f8d8df;
+      --rose: #c9667b;
+      --dark: #4a2c32;
+      --soft-dark: #76545b;
+      --card: rgba(255, 255, 255, 0.74);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--dark);
+      font-family: "DM Mono", monospace;
+      background:
+        radial-gradient(circle at 12% 8%, #ffdce4 0%, transparent 27%),
+        radial-gradient(circle at 88% 88%, #fce9ca 0%, transparent 31%),
+        var(--cream);
+    }
+
+    .hearts {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .heart {
+      position: absolute;
+      color: rgba(201, 102, 123, 0.24);
+      animation: floatHeart 10s linear infinite;
+    }
+
+    @keyframes floatHeart {
+      0% {
+        transform: translateY(110vh) rotate(0deg);
+        opacity: 0;
+      }
+
+      15% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-14vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      width: min(930px, calc(100% - 32px));
+      min-height: 100vh;
+      margin: auto;
+      padding: 36px 0 70px;
+    }
+
+    .page {
+      display: none;
+      min-height: 78vh;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      animation: pageAppear 0.55s ease;
+    }
+
+    .page.active {
+      display: flex;
+    }
+
+    @keyframes pageAppear {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card {
+      width: min(730px, 100%);
+      padding: 48px 30px;
+      border: 1px solid rgba(201, 102, 123, 0.22);
+      border-radius: 28px;
+      background: var(--card);
+      box-shadow: 0 18px 55px rgba(91, 47, 57, 0.13);
+      backdrop-filter: blur(10px);
+    }
+
+    .eyebrow {
+      color: var(--rose);
+      font-size: 11px;
+      letter-spacing: 1.7px;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2 {
+      margin: 14px 0;
+      font-family: "Playfair Display", serif;
+      line-height: 1.14;
+    }
+
+    h1 {
+      font-size: clamp(42px, 8vw, 76px);
+    }
+
+    h2 {
+      font-size: clamp(32px, 5vw, 52px);
+    }
+
+    p {
+      max-width: 590px;
+      margin: 18px auto;
+      color: var(--soft-dark);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .btn {
+      margin: 14px 5px 0;
+      padding: 14px 22px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      color: white;
+      background: var(--dark);
+      box-shadow: 0 7px 18px rgba(74, 44, 50, 0.18);
+      font: inherit;
+      font-size: 12px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      background: var(--rose);
+    }
+
+    .btn.outline {
+      border-color: rgba(74, 44, 50, 0.32);
+      color: var(--dark);
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .reason-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 28px;
+      text-align: left;
+    }
+
+    .reason {
+      min-height: 145px;
+      padding: 19px;
+      border: 1px solid rgba(201, 102, 123, 0.18);
+      border-radius: 18px;
+      color: var(--dark);
+      background: rgba(255, 255, 255, 0.64);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .reason span {
+      display: block;
+      margin-bottom: 9px;
+      font-size: 23px;
+    }
+
+    .letter {
+      margin-top: 25px;
+      padding: 28px;
+      border-radius: 14px;
+      text-align: left;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 31px,
+          rgba(201, 102, 123, 0.12) 32px
+        ),
+        #fffdf9;
+      box-shadow: inset 0 0 0 1px rgba(201, 102, 123, 0.14);
+    }
+
+    .letter p {
+      max-width: none;
+      margin: 0 0 18px;
+      color: #5a3f45;
+      font-size: 14px;
+    }
+
+    .signature {
+      margin-top: 26px !important;
+      color: var(--rose) !important;
+      font-family: "Playfair Display", serif;
+      font-size: 25px !important;
+      line-height: 1.3 !important;
+    }
+
+    .coupon-scene {
+      width: min(760px, 93vw);
+      aspect-ratio: 2.64 / 1;
+      margin: 28px auto 8px;
+      perspective: 1200px;
+    }
+
+    .coupon-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+   padding: 0;
+  border: 0;
+  border-radius: 18px;
+  cursor: pointer;
+  background: transparent;
+  outline: none;
+  filter: drop-shadow(0 26px 22px rgba(80, 38, 48, 0.24));
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+    }
+
+   .coupon-card:focus-visible {
+  outline: 3px solid #c9667b;
+  outline-offset: 7px;
+    }
+
+    .coupon-face {
+     position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 18px;
+  background: white;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+    }
+
+    .coupon-front {
+  transform: rotateY(0deg);
+  -webkit-transform: rotateY(0deg);
+}
+
+.coupon-back {
+  transform: rotateY(-180deg);
+  -webkit-transform: rotateY(-180deg);
+}
+
+.coupon-card.flipped .coupon-front {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+}
+
+.coupon-card.flipped .coupon-back {
+  transform: rotateY(0deg);
+  -webkit-transform: rotateY(0deg);
+}
+
+    .coupon-face img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: white;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+  
+    .shine {
+      position: absolute;
+      inset: -40%;
+      pointer-events: none;
+      background: linear-gradient(
+        105deg,
+        transparent 40%,
+        rgba(255, 255, 255, 0.7) 50%,
+        transparent 60%
+      );
+      transform: translateX(-90%) rotate(8deg);
+      animation: shineMove 5.3s ease-in-out infinite;
+    }
+
+    .tap-label,
+    .back-label {
+      position: absolute;
+      left: 50%;
+      bottom: 14px;
+     transform: translateX(-50%);
+    padding: 8px 13px;
+    border-radius: 999px;
+    white-space: nowrap;
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    backdrop-filter: blur(8px);
+    }
+
+    .tap-label {
+      color: white;
+      background: rgba(53, 24, 30, 0.72);
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.16);
+    }
+
+    .back-label {
+      color: #4a2c32;
+      background: rgba(255, 255, 255, 0.80);
+    }
+
+    .coupon-message {
+      min-height: 22px;
+      margin: 18px 0 0;
+      color: var(--soft-dark);
+      font-size: 12px;
+    }
+
+    .coupon-final {
+      display: none;
+      margin: 13px auto 0;
+      color: var(--rose);
+      font-family: "Playfair Display", serif;
+      font-size: 22px;
+      animation: appear 0.55s ease;
+    }
+
+    .coupon-final.show {
+      display: block;
+    }
+
+    .final-heart {
+      margin: 12px 0 0;
+      font-size: 67px;
+      color: var(--rose);
+      animation: heartBeat 1.35s ease-in-out infinite;
+    }
+
+    @keyframes couponFloat {
+      0%,
+      100% {
+        transform: rotateX(2deg) rotateY(-5deg) translateY(0);
+      }
+
+      50% {
+        transform: rotateX(-2deg) rotateY(5deg) translateY(-12px);
+      }
+    }
+
+    @keyframes shineMove {
+      0%,
+      16% {
+        transform: translateX(-88%) rotate(9deg);
+      }
+
+      54%,
+      100% {
+        transform: translateX(88%) rotate(9deg);
+      }
+    }
+
+    @keyframes heartBeat {
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.14);
+      }
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 560px) {
+      main {
+        width: min(100% - 20px, 930px);
+        padding-top: 18px;
+      }
+
+      .page {
+        min-height: 84vh;
+      }
+
+      .card {
+        padding: 38px 18px;
+        border-radius: 22px;
+      }
+
+      .reason-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .reason {
+        min-height: auto;
+      }
+
+      .letter {
+        padding: 21px;
+      }
+
+      .letter p {
+        font-size: 13px;
+      }
+
+      .coupon-face {
+        border-radius: 14px;
+      }
+
+      .tap-label,
+      .back-label {
+        bottom: 10px;
+        padding: 7px 11px;
+        font-size: 9px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .heart,
+      .coupon-card,
+      .shine,
+      .final-heart {
+        animation: none;
+      }
+
+      .coupon-card {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hearts" id="hearts"></div>
+
+  <main>
+    <!-- PAGE 1: INTRO -->
+    <section class="page active" id="page1">
+      <div class="card">
+        <div class="eyebrow">Cie senyum-senyum</div>
+
+        <!-- CHANGE THIS: Add his nickname if you want -->
+        <h1>Hi, Sayang! ♡</h1>
+
+        <p>
+          Ini yang kamu tunggu-tunggu semalam HAHAHA
+          hope you like it!
+        </p>
+
+        <button class="btn" onclick="goToPage(2)">
+          Open your surprise
+        </button>
+      </div>
+    </section>
+
+    <!-- PAGE 2: REASONS -->
+    <section class="page" id="page2">
+      <div class="card">
+        <div class="eyebrow">sedikit reminder buat kamu</div>
+        <h2>This is Why I Love You♡</h2>
+
+        <!-- CHANGE THIS: Make every reason specific to him -->
+        <div class="reason-grid">
+          <div class="reason">
+            <span>☀️</span>
+            You make my heavy days feel lighter. To know there's someone out there who loves me deeply, always make my days feel lovely!
+          </div>
+
+          <div class="reason">
+            <span>🥰</span>
+            You listen to all of my stories & thoughts, even yang random sekalipun, dengan sangat sabar & antusias!
+          </div>
+
+          <div class="reason">
+            <span>🤍</span>
+            You make me feel safe, understood, and genuinely loved (nangis dikit)
+          </div>
+
+          <div class="reason">
+            <span>😌</span>
+            You're my favorite to talk to, miss, and laugh with. Jujur ini udah kangen banget karena call-nya tadi ke-end.
+          </div>
+        </div>
+
+        <button class="btn outline" onclick="goToPage(1)">
+          Back
+        </button>
+
+        <button class="btn" onclick="goToPage(3)">
+          Read my letter
+        </button>
+      </div>
+    </section>
+
+    <!-- PAGE 3: LETTER -->
+    <section class="page" id="page3">
+      <div class="card">
+        <div class="eyebrow">A letter for you</div>
+
+        <!-- CHANGE THIS: His nickname -->
+        <h2>It's October 3rd!</h2>
+
+        <div class="letter">
+          <!-- CHANGE THIS: Replace the entire letter with your own words -->
+          <p>Hii sayang,</p>
+
+          <p>
+            Pasti kamu ga expect kan aku bikin ini WKWKWK
+            that's why aku bilang ga mungkin ini bisa jadi
+            dalam 15 menit :D
+          </p>
+
+          <p>
+            Even technically you're not my boyfriend (yet), but still,
+            I think you deserve some cute appreciations from your FRIEND
+            (kata kamu sendiri)
+          </p>
+
+          <p>
+            Sebenernya banyak banget yang bisa aku apresiasi. But one think
+            you should know is, terima kasih sudah mau mengenal & menyayangi aku.
+            I may not always say it in the perfect way, but I appreciate your kindness,
+            your patience, your effort, and the way you make hal-hal biasa feel so special.
+          </p>
+
+          <p>
+            I'm grateful that you come into my life, where I can get to know you and laugh with you.
+            I hope you know that you are loved so much, today and on every ordinary
+            days too in the future. May God always blessed the path you choose ya, sayang!
+            I love you now and forever! ♡
+          </p>
+
+          <!-- CHANGE THIS: Your name -->
+          <p class="signature">
+            Love,<br />
+            Agnes ♡
+          </p>
+        </div>
+
+        <button class="btn outline" onclick="goToPage(2)">
+          Back
+        </button>
+
+        <button class="btn" onclick="goToPage(4)">
+          One more thing...
+        </button>
+      </div>
+    </section>
+
+    <!-- PAGE 4: ILLUSTRATOR COUPON -->
+    <section class="page" id="page4">
+      <div class="card">
+        <div class="eyebrow">Your final surprise</div>
+        <h2>A little coupon for you</h2>
+
+        <p>
+          Ini yang aku mau kasih ke kamu tadi HEHEHE tap to claim it!
+        </p>
+
+        <div class="coupon-scene">
+          <div
+            class="coupon-card"
+         id="couponCard"
+         type="button"
+         aria-label="Tap to flip your meal coupon"
+          >
+            <div class="coupon-face coupon-front">
+              <!-- This must match your Illustrator export file name -->
+              <img
+                src="./coupon-front.png"
+                alt="Front of a Boyfriend Day meal coupon"
+              />
+
+              <div class="shine"></div>
+              <div class="tap-label">Tap to reveal ♡</div>
+            </div>
+
+            <div class="coupon-face coupon-back">
+              <!-- This must match your Illustrator export file name -->
+              <img
+                src="./coupon-back.png"
+                alt="Back of a Boyfriend Day meal coupon"
+              />
+
+              <span class="back-label">Tap to flip it back</span>
+            </div>
+         </button>
+        </div>
+
+        <p class="coupon-message" id="couponMessage">
+          hadiah kecil dari aku, cewe kamu.
+        </p>
+
+        <p class="coupon-final" id="couponFinal">
+          you can only redeem it with me hehehe ♡
+        </p>
+
+        <button class="btn outline" onclick="goToPage(3)">
+          Back
+        </button>
+
+        <button class="btn" onclick="goToPage(5)">
+          Finish
+        </button>
+      </div>
+    </section>
+
+    <!-- PAGE 5: FINAL -->
+    <section class="page" id="page5">
+      <div class="card">
+        <div class="eyebrow">itu aja buat sekarang😗</div>
+
+        <!-- CHANGE THIS: Add his name or nickname if you want -->
+        <h2>I love you♡</h2>
+
+        <p>
+          Happy Boyfriend Day buat cowo aku (eh sorry, temen mksdnya)!
+          I hope this small surprise made you smile! Kalo ga, jujur parah banget
+        </p>
+
+        <p>
+          Now please send me pap kamu sekarang because I made
+          this with love and I want to see your reaction HEHE😌
+        </p>
+
+        <div class="final-heart">♡</div>
+
+        <button class="btn" onclick="goToPage(1)">
+          Tap kalau kamu mau baca lagi
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function goToPage(pageNumber) {
+      document.querySelectorAll(".page").forEach((page) => {
+        page.classList.remove("active");
+      });
+
+      document.getElementById("page" + pageNumber).classList.add("active");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    const couponCard = document.getElementById("couponCard");
+    const couponMessage = document.getElementById("couponMessage");
+    const couponFinal = document.getElementById("couponFinal");
+
+    function flipCoupon() {
+      couponCard.classList.toggle("flipped");
+
+      const isFlipped = couponCard.classList.contains("flipped");
+
+      if (isFlipped) {
+        couponMessage.textContent = "Your meal-date coupon has been unlocked ♡";
+        couponFinal.classList.add("show");
+      } else {
+        couponMessage.textContent = "A small gift, made especially for you.";
+        couponFinal.classList.remove("show");
+      }
+    }
+
+    function handleCouponKey(event) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        flipCoupon();
+      }
+    }
+
+    couponCard.addEventListener("mousemove", (event) => {
+      if (couponCard.classList.contains("flipped")) {
+        return;
+      }
+
+      const box = couponCard.getBoundingClientRect();
+      const x = (event.clientX - box.left) / box.width;
+      const y = (event.clientY - box.top) / box.height;
+
+      const rotateY = (x - 0.5) * 12;
+      const rotateX = (0.5 - y) * 10;
+
+      couponCard.style.transform =
+        `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.025)`;
+    });
+
+    couponCard.addEventListener("mouseleave", () => {
+      if (!couponCard.classList.contains("flipped")) {
+        couponCard.style.transform = "";
+      }
+    });
+
+    const hearts = document.getElementById("hearts");
+
+    for (let i = 0; i < 22; i++) {
+      const heart = document.createElement("div");
+
+      heart.className = "heart";
+      heart.innerHTML = "♡";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDelay = Math.random() * 8 + "s";
+      heart.style.animationDuration = 7 + Math.random() * 7 + "s";
+      heart.style.fontSize = 13 + Math.random() * 24 + "px";
+
+      hearts.appendChild(heart);
+    }
+  </script>
+</body>
+</html>
